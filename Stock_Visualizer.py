@@ -1,12 +1,5 @@
+from API_Functions import api_test
 
-import requests
-
-def api_test():
-    url = 'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo'
-    r = requests.get(url)
-    data = r.json()
-
-    print(data)
 
 def get_user_input():
     
@@ -45,11 +38,11 @@ def get_user_input():
 
 def main(): 
     while True:
+        api_test() 
         get_user_input()
         repeat_function = input("\nWould you like to view more stock data? (y/n)\n")
         if repeat_function == "n":
             break
-    #api_test()  
-
+     
 if __name__=="__main__": 
     main() 
