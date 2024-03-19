@@ -38,8 +38,9 @@ def get_user_input():
 
 def main(): 
     while True:
-        api_test() 
-        get_user_input()
+        api_test("IBM", "2", "2022-01-01", "2022-02-01") 
+        stock_symbol, chart_type, time_series_function, start_date, end_date = get_user_input()
+        
         repeat_function = input("\nWould you like to view more stock data? (y/n)\n")
         if repeat_function == "n":
             break
