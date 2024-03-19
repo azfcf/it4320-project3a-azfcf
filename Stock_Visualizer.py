@@ -1,5 +1,12 @@
-#api key: NB0AK6IK339LRUMR
 
+import requests
+
+def api_test():
+    url = 'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo'
+    r = requests.get(url)
+    data = r.json()
+
+    print(data)
 
 def get_user_input():
     
@@ -36,8 +43,13 @@ def get_user_input():
         print("Invalid input. Please try again.")
     return stock_symbol, chart_type, time_series_function, start_date, end_date
 
-while True:
-    get_user_input()
-    repeat_function = input("\nWould you like to view more stock data? (y/n)\n")
-    if repeat_function == "n":
-        break
+def main(): 
+    while True:
+        get_user_input()
+        repeat_function = input("\nWould you like to view more stock data? (y/n)\n")
+        if repeat_function == "n":
+            break
+    #api_test()  
+
+if __name__=="__main__": 
+    main() 
