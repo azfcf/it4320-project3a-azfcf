@@ -1,4 +1,42 @@
-from API_Functions import api_test, is_date_in_range, get_user_input, filter_json_data, generate_chart, render_chart_in_browser
+from API_Functions import api_call
+
+from Graphing_functions import filter_json_data, generate_chart, render_chart_in_browser
+
+#Gets user input for stock symbol, chart type, time series function, start date, and end date
+def get_user_input():
+    while True:
+        stock_symbol = input("\nEnter the stock symbol you are looking for: ")
+        if stock_symbol.strip():
+            break
+        print("Invalid input. Please try again.")
+
+    while True:
+        print("\nChart types \n ----------- \n 1. Bar \n 2. Line\n")
+        chart_type = input("Enter the chart type (1, 2): ")
+        if chart_type in ('1', '2'):
+            break
+        print("Invalid input. Please try again.")
+
+    while True:
+        print("\nSelect the time series of the chart you want to generate \n ------------------------------------- \n 1. Intraday \n 2. Daily\n 3. Weekly \n 4. Monthly")
+        time_series_function = input("Enter the time series option (1, 2, 3, 4): ")
+        if time_series_function.strip() in ('1', '2', '3', '4'):
+            break
+        print("Invalid input. Please try again.")
+
+    while True:
+        start_date = input("Enter the start date (YYYY-MM-DD): ")
+        if len(start_date.strip()) == 10:
+            break
+        print("Invalid input. Please try again.")
+
+    while True:
+        end_date = input("Enter the end date (YYYY-MM-DD): ")
+        if len(end_date.strip()) == 10:
+            break
+        print("Invalid input. Please try again.")
+
+    return stock_symbol, chart_type, time_series_function, start_date, end_date
 
 
 while True: 
@@ -6,7 +44,7 @@ while True:
     stock_symbol, chart_type, time_series_function, start_date, end_date = get_user_input()
     
     #get the JSON data from the Alpha Vantage API based on user input
-    json_data = api_test(stock_symbol, time_series_function)
+    json_data = api_call(stock_symbol, time_series_function, start_date, end_date)
     
     if json_data:
         #filter the JSON data based on the given start_date and end_date
