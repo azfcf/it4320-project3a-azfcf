@@ -51,7 +51,7 @@ def filter_json_data(json_data, start_date, end_date):
     return sorted_filtered_data
 
 
-def generate_chart(filtered_data, chart_type, stock_symbol):
+def generate_chart(filtered_data, chart_type, stock_symbol, start_date, end_date):
     #extract dates from the filtered data
     dates = list(filtered_data.keys())
 
@@ -70,10 +70,11 @@ def generate_chart(filtered_data, chart_type, stock_symbol):
     #create a bar chart if chart_type is '1', otherwise create a line chart
     if chart_type == '1':
         chart = pygal.Bar(x_label_rotation=45)
-        chart.title = f'{stock_symbol} Stock Prices - Bar Chart'
+        
     else:
         chart = pygal.Line(x_label_rotation=45)
-        chart.title = f'{stock_symbol} Stock Prices - Line Chart'
+
+    chart.title = f'Stock Data for {stock_symbol.upper()}: {start_date.strftime("%Y-%m-%d")} to {end_date.strftime("%Y-%m-%d")}'
 
     #set the x-labels of the chart to the dates
     chart.x_labels = dates
@@ -95,7 +96,7 @@ def generate_chart(filtered_data, chart_type, stock_symbol):
 
 def render_chart_in_browser(chart):
     #define the file name for the chart HTML file
-    chart_file = 'chart.html'
+    chart_file = 'chart.svg'
 
     #render the chart to the specified file
     chart.render_to_file(chart_file)

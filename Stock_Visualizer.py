@@ -54,14 +54,14 @@ while True:
     stock_symbol, chart_type, time_series_function, start_date, end_date = get_user_input()
     
     #get the JSON data from the Alpha Vantage API based on user input
-    json_data = api_call(stock_symbol, time_series_function, start_date, end_date)
+    json_data = api_call(stock_symbol, time_series_function, start_date)
     
     if json_data:
         #filter the JSON data based on the given start_date and end_date
         filtered_data = filter_json_data(json_data, start_date, end_date)
         
         if filtered_data:
-            chart = generate_chart(filtered_data, chart_type, stock_symbol)
+            chart = generate_chart(filtered_data, chart_type, stock_symbol, start_date, end_date)
             render_chart_in_browser(chart)
             #print(filtered_data)
         else:
