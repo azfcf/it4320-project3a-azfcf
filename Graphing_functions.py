@@ -6,7 +6,10 @@ import os
 
 #Function to check if a given date is within a specified range
 def is_date_in_range(date_str, start_date, end_date):
-    date = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+    try:
+        date = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
     start = datetime.datetime.strptime(start_date, "%Y-%m-%d")
     end = datetime.datetime.strptime(end_date, "%Y-%m-%d")
     return start <= date <= end
@@ -26,7 +29,10 @@ def filter_json_data(json_data, start_date, end_date):
     filtered_data_list = list(filtered_data.items())
     
     #Sort the list based on the date in ascending order
-    sorted_data_list = sorted(filtered_data_list, key=lambda x: datetime.datetime.strptime(x[0], "%Y-%m-%d %H:%M:%S"))
+    try:
+        sorted_data_list = sorted(filtered_data_list, key=lambda x: datetime.datetime.strptime(x[0], "%Y-%m-%d %H:%M:%S"))
+    except:
+        sorted_data_list = sorted(filtered_data_list, key=lambda x: datetime.datetime.strptime(x[0], "%Y-%m-%d"))
 
     
     #Convert the sorted list back to a dictionary
