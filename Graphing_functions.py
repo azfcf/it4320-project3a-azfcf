@@ -4,14 +4,24 @@ from lxml import etree
 import webbrowser
 import os
 
-#Function to check if a given date is within a specified range
-def is_date_in_range(date_str, start_date, end_date):
+def parse_date_string(date_str):
     try:
         date = datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
     except ValueError:
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-    start = datetime.datetime.strptime(start_date, "%Y-%m-%d")
-    end = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+        try:
+            date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            print("Invalid date entered. Please re-enter the date string and try again.")
+            return None
+    except TypeError:
+        print("Invalid date entered. Please re-enter the date string and try again.")
+        return None
+
+    return date
+
+#Function to check if a given date is within a specified range
+def is_date_in_range(date_str, start, end):
+    date = parse_date_string(date_str)
     return start <= date <= end
 
 #Function to filter JSON data based on a specified date range
