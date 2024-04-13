@@ -68,7 +68,7 @@ def generate_chart(filtered_data, chart_type, stock_symbol, start_date, end_date
     close_prices = [float(data['4. close']) for data in filtered_data.values()]
 
     #create a bar chart if chart_type is '1', otherwise create a line chart
-    if chart_type == '1':
+    if chart_type == 'bar':
         chart = pygal.Bar(x_label_rotation=45)
         
     else:
@@ -92,7 +92,7 @@ def generate_chart(filtered_data, chart_type, stock_symbol, start_date, end_date
     chart.add('Close', close_prices)
 
     #return the generated chart object
-    return chart
+    return chart.render_data_uri()
 
 def render_chart_in_browser(chart):
     #define the file name for the chart HTML file
