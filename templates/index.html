@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    .alert {
+        padding: 20px;
+        margin: 5px;
+        color: #970020;
+        background-color: #ffd5de;
+    }
+</style>
+    
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <form method="post">
+        <label for="symbol">Choose Symbol:</label>
+        <!-- <input type="text" id="symbol" name="symbol" value="{{ request.form[symbol] }}"><br> -->
+        <select name="symbol" id="symbol">
+            {% for symbol in symbols %}
+                <option value="{{ symbol['symbol'] }}">{{ symbol['symbol'] }}, {{ symbol['name'] }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <label for="charttype">Choose chart type:</label>
+        <select name="charttype" id="charttype">
+            <option value="bar">1. Bar</option>
+            <option value="line">2. Line</option>
+        </select><br>
+
+        <label for="timeseries">Choose time series:</label>
+        <select name="timeseries" id="timeseries">
+            <option value="TIME_SERIES_INTRADAY">1. Intraday</option>
+            <option value="TIME_SERIES_DAILY">2. Daily</option>
+            <option value="TIME_SERIES_WEEKLY">3. Weekly</option>
+            <option value="TIME_SERIES_MONTHLY">4. Monthly</option>
+        </select><br>
+
+        <label for="startdate">Start date:</label>
+        <input type="date" id="startdate" name="startdate" min="1900-01-01" max="{{ today }}" required><br>
+
+        <label for="enddate">End date:</label>
+        <input type="date" id="enddate" name="enddate" min="1900-01-01" max="{{ today }}" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if chart != None %}
+        <div id="chart">
+            <embed type="image/svg+xml" src={{ chart|safe }} />
+        </div>
+    {% endif %}
+</body>
+</html>

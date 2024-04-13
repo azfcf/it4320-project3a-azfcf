@@ -1,0 +1,13 @@
+version: '3.11'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock-visualizer-3a-azfcf
+    ports:
+      - "5003:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_DEBUG: 1
